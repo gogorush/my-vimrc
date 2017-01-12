@@ -68,6 +68,21 @@ Plugin 'digitaltoad/vim-pug'
 "Plugin 'Shougo/neocomplete.vim'
 Plugin 'rizzatti/dash.vim'
 Plugin 'vim-perl/vim-perl'
+Plugin 'kana/vim-fakeclip'
+" SnipMate
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
+
+" Erlang Runtime
+Plugin 'vim-erlang/vim-erlang-runtime'
+Plugin 'vim-erlang/vim-erlang-compiler'
+Plugin 'vim-erlang/vim-erlang-omnicomplete'
+Plugin 'vim-erlang/vim-erlang-tags'
+" Optional:
+"Plugin 'honza/vim-snippets'
+
 
 call vundle#end()
 filetype plugin indent on
@@ -348,7 +363,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-"let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goimports"
 let g:go_get_update = 0
 
 " nerdtree toggle
@@ -469,3 +484,12 @@ let g:tagbar_type_go = {
 \ }
 
 set tags+=tags;/
+
+" copy full file path to clipboard
+nmap <Leader>cp :let @+=expand("%:p")<CR>
+set clipboard=unnamed
+
+"Golang settings
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>t <Plug>(go-test)
+
