@@ -82,7 +82,8 @@ Plugin 'vim-erlang/vim-erlang-omnicomplete'
 Plugin 'vim-erlang/vim-erlang-tags'
 " Optional:
 "Plugin 'honza/vim-snippets'
-
+Plugin 'othree/yajs.vim'
+Plugin 'othree/es.next.syntax.vim'
 
 call vundle#end()
 filetype plugin indent on
