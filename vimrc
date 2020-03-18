@@ -30,7 +30,7 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'nvie/vim-flake8'
 " Plugin 'flazz/vim-colorschemes'
 Bundle 'Lokaltog/vim-distinguished'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'AutoClose'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade.git'
@@ -60,7 +60,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'MattesGroeger/vim-bookmarks'
 
 Plugin 'ternjs/tern_for_vim'
-Plugin 'guns/vim-clojure-static'
+"Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'fatih/vim-go'
@@ -74,12 +74,17 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
+Plugin 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Erlang Runtime
-Plugin 'vim-erlang/vim-erlang-runtime'
-Plugin 'vim-erlang/vim-erlang-compiler'
-Plugin 'vim-erlang/vim-erlang-omnicomplete'
-Plugin 'vim-erlang/vim-erlang-tags'
+""" Erlang Runtime
+"Plugin 'vim-erlang/vim-erlang-runtime'
+"Plugin 'vim-erlang/vim-erlang-compiler'
+"Plugin 'vim-erlang/vim-erlang-omnicomplete'
+"Plugin 'vim-erlang/vim-erlang-tags'
 " Optional:
 "Plugin 'honza/vim-snippets'
 Plugin 'othree/yajs.vim'
@@ -105,7 +110,8 @@ nmap <Leader>t :TagbarToggle<CR>
 nmap <Leader>N :NERDTreeToggle<CR>
 nmap <Leader>i :IndentGuidesToggle<CR>
 nmap <Leader>T :TlistToggle<CR>
-:nmap <silent> <leader>d <Plug>DashSearch
+":nmap <silent> <leader>d <Plug>DashSearch
+nmap <leader>d :GoDef<CR>
 
 " Let me save files with sudo
 cmap w!! w !sudo tee % >/dev/null
@@ -364,7 +370,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "gopls"
 let g:go_get_update = 0
 
 " nerdtree toggle
@@ -493,4 +499,8 @@ set clipboard=unnamed
 "Golang settings
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>t <Plug>(go-test)
+
+let g:LanguageClient_serverCommands = {
+    \ 'go': ['go-langserver','-gocodecompletion', '-func-snippet-enabled=false'],
+    \ }
 
