@@ -63,7 +63,7 @@ Plugin 'ternjs/tern_for_vim'
 "Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'fatih/vim-go'
+"Plugin 'fatih/vim-go'
 Plugin 'digitaltoad/vim-pug'
 "Plugin 'Shougo/neocomplete.vim'
 Plugin 'rizzatti/dash.vim'
@@ -90,6 +90,15 @@ Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'othree/yajs.vim'
 Plugin 'othree/es.next.syntax.vim'
 
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
 call vundle#end()
 filetype plugin indent on
 
@@ -111,7 +120,11 @@ nmap <Leader>N :NERDTreeToggle<CR>
 nmap <Leader>i :IndentGuidesToggle<CR>
 nmap <Leader>T :TlistToggle<CR>
 ":nmap <silent> <leader>d <Plug>DashSearch
-nmap <leader>d :GoDef<CR>
+"nmap <leader>d :GoDef<CR>
+nnoremap <silent> <leader>h :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <leader>d :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <leader>r :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <leader>m :call LanguageClient_contextMenu()<CR>
 
 " Let me save files with sudo
 cmap w!! w !sudo tee % >/dev/null
@@ -364,14 +377,14 @@ au Syntax * RainbowParenthesesLoadSquare
 set shell=/bin/sh
 
 " vim-go settings
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "gopls"
-let g:go_get_update = 0
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_interfaces = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_fmt_command = "gopls"
+"let g:go_get_update = 0
 
 " nerdtree toggle
 map <C-n> :NERDTreeToggle<CR>
