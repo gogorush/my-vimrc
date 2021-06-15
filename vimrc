@@ -1,6 +1,7 @@
 " ==========================================================
 " Vundle
 " ==========================================================
+set shell='/bin/sh'
 set nocompatible
 filetype off
 
@@ -32,7 +33,7 @@ Bundle 'nvie/vim-flake8'
 Bundle 'Lokaltog/vim-distinguished'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'AutoClose'
-Bundle 'kchmck/vim-coffee-script'
+"Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade.git'
 Bundle 'scrooloose/syntastic'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -64,10 +65,10 @@ Plugin 'ternjs/tern_for_vim'
 Plugin 'tpope/vim-fireplace'
 Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'fatih/vim-go'
-Plugin 'digitaltoad/vim-pug'
+"Plugin 'digitaltoad/vim-pug'
 "Plugin 'Shougo/neocomplete.vim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'vim-perl/vim-perl'
+"Plugin 'rizzatti/dash.vim'
+"Plugin 'vim-perl/vim-perl'
 Plugin 'kana/vim-fakeclip'
 " SnipMate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -575,6 +576,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+"autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
+nmap <leader>cr <Plug>(coc-references)
+
+
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -663,3 +668,15 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " enable highlight current symbol on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 set termguicolors
+
+" auto import for go filetype
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" set to highlighing NOTE: and HABA:
+syntax keyword jsCommentTodo    contained TODO FIXME XXX TBD NOTE
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+nnoremap <C-l> <C-i>
