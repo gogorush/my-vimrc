@@ -57,7 +57,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'MattesGroeger/vim-bookmarks'
 
 Plugin 'ternjs/tern_for_vim'
@@ -79,7 +79,7 @@ Plugin 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 """ Erlang Runtime
 "Plugin 'vim-erlang/vim-erlang-runtime'
@@ -90,6 +90,9 @@ Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 "Plugin 'honza/vim-snippets'
 Plugin 'othree/yajs.vim'
 Plugin 'othree/es.next.syntax.vim'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+
 
 if executable('rls')
     au User lsp_setup call lsp#register_server({
@@ -399,7 +402,8 @@ function! g:TestFunc()
     let @/ = expand("<cword>")
     set hlsearch
 endfunction
-nmap <Leader>f :set nohlsearch\|:call g:TestFunc()\|:Ack <cword><CR>
+"nmap <Leader>f :set nohlsearch\|:call g:TestFunc()\|:Ack <cword><CR>
+nmap <Leader>f :set nohlsearch\|:call g:TestFunc()\|:Ag <C-R><C-W><CR>
 
 " auto complete for neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -680,3 +684,11 @@ syntax keyword jsCommentTodo    contained TODO FIXME XXX TBD NOTE
 " xmap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 nnoremap <C-l> <C-i>
+" rust vim check
+let g:syntastic_rust_checkers = ['cargo']
+
+" back to closed location
+autocmd BufReadPost * normal! g`"
+" map ctrl p to fzf
+nmap <C-P> :FZF<CR>
+
