@@ -16,8 +16,11 @@ Plugin 'gmarik/Vundle.vim'
 "
 " original repos on github
 Plugin 'tpope/vim-fugitive'
-Plugin 'L9'
-Plugin 'wincent/Command-T'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+
 
 "Bundle 'Lokaltog/vim-easymotion'
 Plugin 'easymotion/vim-easymotion'
@@ -32,7 +35,7 @@ Bundle 'nvie/vim-flake8'
 " Plugin 'flazz/vim-colorschemes'
 Bundle 'Lokaltog/vim-distinguished'
 "Plugin 'Valloric/YouCompleteMe'
-Plugin 'AutoClose'
+Plugin 'Townk/vim-autoclose'
 "Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade.git'
 Bundle 'scrooloose/syntastic'
@@ -54,8 +57,8 @@ Plugin 'henrik/vim-qargs'
 Plugin 'mattn/emmet-vim'
 
 " javascript Plugins
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
+""Plugin 'jelera/vim-javascript-syntax'
+""Plugin 'pangloss/vim-javascript'
 
 "Plugin 'kien/ctrlp.vim'
 Plugin 'MattesGroeger/vim-bookmarks'
@@ -129,7 +132,7 @@ nnoremap <silent> <leader>h :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <leader>d :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <leader>r :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> <leader>m :call LanguageClient_contextMenu()<CR>
-
+nnoremap <Leader>; <Esc>A;<Esc>
 " Let me save files with sudo
 cmap w!! w !sudo tee % >/dev/null
 
@@ -233,7 +236,7 @@ set incsearch               " Incrementally search while typing a /regex
 " FileType specific changes
 " ============================================================
 " Javascript
-au BufRead *.js set makeprg=jslint\ %
+""au BufRead *.js set makeprg=jslint\ %
 " Use tab to scroll through autocomplete menus
 "autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 "autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
@@ -320,7 +323,7 @@ set cursorline
 
 map <c-e> :call JsBeautify()<cr>
 " or
-autocmd FileType javascript noremap <buffer>  <c-e> :call JsBeautify()<cr>
+"autocmd FileType javascript noremap <buffer>  <c-e> :call JsBeautify()<cr>
 " for json
 autocmd FileType json noremap <buffer> <c-e> :call JsonBeautify()<cr>
 " for jsx
@@ -360,7 +363,7 @@ let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 :nnoremap <F3> :execute "Ack '<cWORD>' ."<cr>
 
 " enable eslint in syntastic
-let g:syntastic_javascript_checkers = ['jshint', 'eslint']
+"let g:syntastic_javascript_checkers = ['jshint', 'eslint']
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -677,7 +680,18 @@ set termguicolors
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " set to highlighing NOTE: and HABA:
-syntax keyword jsCommentTodo    contained TODO FIXME XXX TBD NOTE
+"syntax keyword jsCommentTodo    contained TODO FIXME XXX TBD NOTE
+"syn keyword   myTodo   contained  NOTE: TODO: FIXME: HABA:
+"syn match   myTodo   contained   "\<\(TODO\|FIXME\|NOTE\|TBD\):"
+"hi def link myTodo Todo
+augroup vimrc_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(HABA|FIXME|NOTE|TODO|OPTIMIZE|XXX)/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo
+
+
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 " nmap <silent> <TAB> <Plug>(coc-range-select)
