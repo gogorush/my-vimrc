@@ -520,7 +520,7 @@ set clipboard=unnamed
 
 "Golang settings
 au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>t <Plug>(go-test)
+"au FileType go nmap <leader>t <Plug>(go-test)
 
 let g:LanguageClient_serverCommands = {
     \ 'go': ['go-langserver','-gocodecompletion', '-func-snippet-enabled=false'],
@@ -705,4 +705,14 @@ let g:syntastic_rust_checkers = ['cargo']
 autocmd BufReadPost * normal! g`"
 " map ctrl p to fzf
 nmap <C-P> :FZF<CR>
+
+" autoclose {}, ()
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+inoremap (      ()<Left>
+inoremap (<CR>  (<CR>)<Esc>O
+inoremap ((     (
+inoremap ()     ()
 
