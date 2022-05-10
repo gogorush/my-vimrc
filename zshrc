@@ -1,6 +1,5 @@
-#### FIG ENV VARIABLES ####
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -14,7 +13,6 @@ fi
 export GOPATH=$HOME/Documents/workspace/golang
 #export GOROOT=/Users/houruxin/Documents/workspace/golang/src/go
 #export GOROOT=/Users/houruxin/go
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/houruxin/Documents/workspace/golang/bin:/Users/houruxin/.cargo/bin:/opt/local/bin
 
 JAVA_HOME=$(/usr/libexec/java_home) PATH=$PATH:$JAVA_HOME/bin export JAVA_HOME
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
@@ -92,6 +90,7 @@ source ~/.p10k.zsh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+source ~/.iterm2_shell_integration.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -129,7 +128,7 @@ alias ll='ls -al'
 alias -s js=vim
 alias -s go=vim
 
-alias vim='/usr/local/Cellar/vim/8.2.1900/bin/vim'
+alias vim='/usr/local/Cellar/vim/8.2.4900/bin/vim'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -150,14 +149,54 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 export PATH=/Users/houruxin/.tiup/bin:$PATH
+export SSH_KEY_PATH=/Users/houruxin/.ssh/id_rsa_github
 
 # prof end used to coorperte with the start function
 # zprof
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 
 
-#### FIG ENV VARIABLES ####
-[[ -s ~/.fig/fig.sh ]] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
+# NOTE: don't export path after gvm & nvm
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/houruxin/Documents/workspace/golang/bin:/Users/houruxin/.cargo/bin:/opt/local/bin:$GOPATH:~/.local/bin:/usr/local/opt/llvm/bin/
 
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[[ -s "/Users/houruxin/.gvm/scripts/gvm" ]] && source "/Users/houruxin/.gvm/scripts/gvm"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(zoxide init zsh)"
+
+# place this after nvm initialization!
+#autoload -U add-zsh-hook
+#load-nvmrc() {
+#  local node_version="$(nvm version)"
+#  local nvmrc_path="$(nvm_find_nvmrc)"
+#
+#  if [ -n "$nvmrc_path" ]; then
+#    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+#
+#    if [ "$nvmrc_node_version" = "N/A" ]; then
+#      nvm install
+#    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#      nvm use
+#    fi
+#  elif [ "$node_version" != "$(nvm version default)" ]; then
+#    #echo "Reverting to nvm default version"
+#    nvm use default
+#  fi
+#}
+#add-zsh-hook chpwd load-nvmrc
+#load-nvmrc
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/zshrc.post.zsh"
